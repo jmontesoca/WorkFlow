@@ -27,9 +27,7 @@ class LoginPage extends StatelessWidget {
           style: TextStyle(fontSize: 32)
           ),
       ),
-
-      body: LoginForm(), //Doesnt accept children
-      // #docregion text
+      body: LoginForm(), 
     );
   }
 }
@@ -42,25 +40,35 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormState extends State<LoginForm> {
+  final alphanumeric = RegExp(r'^[a-zA-Z0-9]+$');
   final _formKey = GlobalKey<FormState>();
+  var _email, _password; 
+
 
   @override
   Widget build(BuildContext context) {
+    
     return Form(
       key: _formKey,
+      
+
       child: Stack(children: <Widget>[
         Container(
             //child:
             ),
         Center(
+          //instead of hardcode 175, container can be infinity length but the widgets within can be centered to be center of the container. 
           child: Container(
             width: 300.0,
             padding: EdgeInsets.only(top: 175.0),
             child: Column(children: <Widget>[
-              //////////////////////////////////////////////////////////Text Fields
+
+              
+//////////////////////////////////////Text Fields
               new MyImageWidget(),
 
               TextFormField(
+                autocorrect: false,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue),
@@ -70,19 +78,31 @@ class LoginFormState extends State<LoginForm> {
                     color: Colors.red,
                     size: 24.0,
                   ),
-                  hintText: 'Username',
+                  hintText: 'Email',
                 ),
+                //Validation Section for Email Textfield
                 validator: (value) {
                   if (value.isEmpty) {
                     Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('Error: Username is empty.')));
+                        SnackBar(content: Text('Error: Email is empty.')));
                   }
+                  
+                  if (!value.contains('@')){
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text("Please type in a valid email address")));
+                  }
+
                   return null;
                 },
+                onSaved: (str){
+                  _email = str;
+                }, 
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 25.0),
                 child: TextFormField(
+                  obscureText: true,
+                  autocorrect: false,
                   decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
@@ -93,26 +113,23 @@ class LoginFormState extends State<LoginForm> {
                         size: 24.0,
                       ),
                       hintText: 'Password'),
+                  //Validation Section for Password Textfield
                   validator: (value) {
-                    if (value.isEmpty) {
+                    if (value.isEmpty | (value.length <= 7)) {
                       Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text('Error: Password is empty.')));
+                          SnackBar(content: Text('Error: Password is invalid.')));
                     }
                     return null;
+                  },
+                  onSaved: (str)  { //Database shit goes here
+                     _password = str;  
                   },
                 ),
               ),
 
-              ////////////////////////////////////////////////////////////Submission Button
+////////////////////////////////Submission Button
               RaisedButton(
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('Processing Submission')));
-                  }
-                },
+                onPressed: onPressed,
                 child: Text('LOG IN'),
               ),
               FlatButton(
@@ -127,4 +144,14 @@ class LoginFormState extends State<LoginForm> {
       ]),
     );
   }
+
+  void onPressed(){
+
+    var form = _formKey.currentState;
+
+   if (form.validate()){
+
+   }
+  }
+
 }
