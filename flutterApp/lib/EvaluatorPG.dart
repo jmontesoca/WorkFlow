@@ -6,6 +6,7 @@ class FirstRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+
         backgroundColor: Colors.red,
         //automaticallyimplyleading takes away back button when using Appbar
         automaticallyImplyLeading: false,
@@ -170,6 +171,19 @@ class FirstRoute extends StatelessWidget {
             ],
           ),
         ],
+
+        //automaticallyimplyleading takes away back button when using Appbar
+        automaticallyImplyLeading: false,
+        title: Text('First Route'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          child: Text('Open route'),
+          onPressed: () {
+            // Navigate to second route when tapped.
+          },
+        ),
+
       ),
     );
   }
