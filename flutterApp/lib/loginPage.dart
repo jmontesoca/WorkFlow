@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutterApp/EvaluatorPG.dart';
-import 'package:flutterApp/test.dart';
+
 
 class LoginPage extends StatelessWidget {
   @override
@@ -133,8 +133,8 @@ class LoginFormState extends State<LoginForm> {
         //got to landing page for jesus
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TestRoute()), //Comment me out and uncomment line under. 
-         // MaterialPageRoute(builder: (context) => FirstRoute()),
+          //Comment me out and uncomment line under. 
+         MaterialPageRoute(builder: (context) => FirstRoute()),
         );
       });
     }
