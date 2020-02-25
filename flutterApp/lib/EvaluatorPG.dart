@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterApp/menuWidgets.dart';
 
 //Dont change class name (FirstRoute) without changing it in main.dart.
 class FirstRoute extends StatelessWidget {
@@ -158,6 +159,9 @@ class FirstRoute extends StatelessWidget {
                             SizedBox(
                               height: 50,
                             ),
+
+                            PDFMaker(),
+
                           ],
                         )),
                   ],

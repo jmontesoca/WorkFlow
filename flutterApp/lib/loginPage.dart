@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutterApp/EvaluatorPG.dart';
+import 'package:flutterApp/menuWidgets.dart';
 
 
 class LoginPage extends StatelessWidget {
@@ -110,12 +111,22 @@ class LoginFormState extends State<LoginForm> {
                 onPressed: onPressed,
                 child: Text('LOG IN'),
               ),
+
+
               FlatButton(
                 onPressed: () {},
                 child: Text(
                   "Forgot password?",
                 ),
               ),
+////////////////////////////
+
+             SizedBox(height: 100,
+             ),
+
+             PDFMaker(),
+
+/////////////////////////////
             ]),
           ),
         ),
