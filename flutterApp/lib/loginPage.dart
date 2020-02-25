@@ -120,12 +120,7 @@ class LoginFormState extends State<LoginForm> {
                 ),
               ),
 ////////////////////////////
-
-             SizedBox(height: 100,
-             ),
-
              PDFMaker(),
-
 /////////////////////////////
             ]),
           ),
