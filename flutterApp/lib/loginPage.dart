@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutterApp/EvaluatorPG.dart';
-
+import 'package:flutterApp/menuWidgets.dart';
+import 'package:flutter/cupertino.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -34,18 +35,27 @@ class LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+
     return Form(
       key: _formKey,
+
+  child: SingleChildScrollView(
+
       child: Stack(children: <Widget>[
         Container(
             //child:
             ),
         Center(
           //instead of hardcode 175, container can be infinity length but the widgets within can be centered to be center of the container.
-          //or use media query class 
+          //or use media query class
           child: Container(
-            width: 300.0,
-            padding: EdgeInsets.only(top: 175.0),
+            
+            padding: EdgeInsets.fromLTRB(
+                MediaQuery.of(context).size.width * 0.40,
+                MediaQuery.of(context).size.width * 0.10,
+                MediaQuery.of(context).size.width * 0.40,
+                MediaQuery.of(context).size.width * 0.10),
             child: Column(children: <Widget>[
 //////////////////////////////////////Text Fields
               new MyImageWidget(),
@@ -94,7 +104,10 @@ class LoginFormState extends State<LoginForm> {
                       hintText: 'Password'),
                   //Validation Section for Password Textfield
                   validator: (value) {
-                    if ((value.isEmpty) | (value.length <= 7) | ( !value.contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]')))) {
+                    if ((value.isEmpty) |
+                        (value.length <= 7) |
+                        (!value
+                            .contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]')))) {
                       return ('Password is invalid.');
                     }
                   },
@@ -110,16 +123,22 @@ class LoginFormState extends State<LoginForm> {
                 onPressed: onPressed,
                 child: Text('LOG IN'),
               ),
+
               FlatButton(
                 onPressed: () {},
                 child: Text(
                   "Forgot password?",
+                  
                 ),
               ),
+////////////////////////////
+
+/////////////////////////////
             ]),
           ),
         ),
       ]),
+      ),
     );
   }
 
@@ -133,8 +152,8 @@ class LoginFormState extends State<LoginForm> {
         //got to landing page for jesus
         Navigator.push(
           context,
-          //Comment me out and uncomment line under. 
-         MaterialPageRoute(builder: (context) => FirstRoute()),
+          //Comment me out and uncomment line under.
+          MaterialPageRoute(builder: (context) => FirstRoute()),
         );
       });
     }
