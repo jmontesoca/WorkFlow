@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutterApp/EvaluatorPG.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:flutterApp/passwordRecover.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -27,10 +29,28 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormState extends State<LoginForm> {
+  Future<bool> fetchCredentials() async {
+    bool flag = false;
+    const url = 'https://projectworkflow.firebaseio.com/credentials.json';
+    final response = await http.get(url);
+    Map<String, dynamic> verify = json.decode(response.body);
+    if (verify['Username'] == _email) {
+      flag = true;
+    } else {
+      flag = false;
+    }
+    if (verify['Password'] == _password) {
+      flag = true;
+    } else {
+      flag = false;
+    }
+    return flag;
+  }
+
+  String name;
+  String pass;
   final alphanumeric = RegExp(r'^[a-zA-Z0-9]+$');
   final _formKey = GlobalKey<FormState>();
-  // final _mainKey = GlobalKey<FormState>();
-  // bool loggedIn = false;
   var _email, _password;
 
   @override
@@ -79,9 +99,7 @@ class LoginFormState extends State<LoginForm> {
                     if (!value.contains('@')) {
                       return ('Please type in a valid email address');
                     }
-                  },
-                  onSaved: (str) {
-                    _email = str;
+                    _email = value;
                   },
                 ),
                 Padding(
@@ -107,10 +125,7 @@ class LoginFormState extends State<LoginForm> {
                               new RegExp(r'[!@#$%^&*(),.?":{}|<>]')))) {
                         return ('Password is invalid.');
                       }
-                    },
-                    onSaved: (str) {
-                      //Database shit goes here
-                      _password = str;
+                      _password = value;
                     },
                   ),
                 ),
@@ -120,9 +135,7 @@ class LoginFormState extends State<LoginForm> {
                   onPressed: onPressed,
                   child: Text('LOG IN'),
                 ),
-
                 ForgotPasswordPopup(),
-              
 ////////////////////////////
 
 /////////////////////////////
@@ -139,14 +152,13 @@ class LoginFormState extends State<LoginForm> {
 
     if (form.validate()) {
       form.save();
-      setState(() {
-        //    loggedIn = true;
-        //got to landing page for jesus
-        Navigator.push(
-          context,
-          //Comment me out and uncomment line under.
-          MaterialPageRoute(builder: (context) => FirstRoute()),
-        );
+      setState(() async {
+        if (await fetchCredentials() == true) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FirstRoute()),
+          );
+        }
       });
     }
   }
