@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutterApp/EvaluatorPG.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutterApp/passwordRecover.dart';
 import 'package:flutter/cupertino.dart';
 
 class LoginPage extends StatelessWidget {
@@ -134,13 +135,7 @@ class LoginFormState extends State<LoginForm> {
                   onPressed: onPressed,
                   child: Text('LOG IN'),
                 ),
-
-                FlatButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Forgot password?",
-                  ),
-                ),
+                ForgotPasswordPopup(),
 ////////////////////////////
 
 /////////////////////////////
@@ -167,4 +162,5 @@ class LoginFormState extends State<LoginForm> {
       });
     }
   }
+
 }
