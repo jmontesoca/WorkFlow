@@ -78,7 +78,8 @@ class PDFMakerState extends State<PDFMaker> {
               color: Colors.blue[900],
               onPressed: PDFpopUp,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center, // Centers children in row
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // Centers children in row
                 children: [
                   Text('PDF'),
                   SizedBox(width: 5), //creates a space in between text and icon
@@ -93,3 +94,4 @@ class PDFMakerState extends State<PDFMaker> {
     );
   }
 }
+
