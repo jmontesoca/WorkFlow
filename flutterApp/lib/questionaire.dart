@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import './textWidget.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class Questionaire extends StatelessWidget {
   @override
@@ -76,6 +78,33 @@ class _MyHomePageState extends State<MyHomePage> {
       'feedbackForFounder': 'feedbackForFounder',
       'internalFeedback': 'internalFeedback',
     };
+
+    Future<void> addAssessment() {
+      const url = 'https://projectworkflow.firebaseio.com/Assessments.json';
+      return http.post(
+        url,
+        body: json.encode(
+          {
+            'productKnowledge': productKnowledgeController.text,
+            'productFeasability': productFeasabilityController.text,
+            'marketKnowledge': marketKnowledgeController.text,
+            'marketEducationAbility': marketEducationAbilityController.text,
+            'customerPersonaKnowledge': customerPersonaKnowledgeController.text,
+            'customerBuyExecution': customerBuyExecutionController.text,
+            'competitionKnowledge': competitionKnowledgeController.text,
+            'competitionExecution': competitionExecutionController.text,
+            'founderExperienceInMarket':
+                founderExperienceInMarketController.text,
+            'founderBusinessExperience':
+                founderBusinessExperienceController.text,
+            'founderCoachableFounder': founderCoachableFounderController.text,
+            'overall': overallController.text,
+            'feedbackForFounder': feedbackForFounderController.text,
+            'internalFeedback': internalFeedbackController.text,
+          },
+        ),
+      );
+    }
 
     print("Screen Size is.... ");
     print(screenSize);
@@ -317,6 +346,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   map['overall'] = overallController.text;
                   map['feedbackForFounder'] = feedbackForFounderController.text;
                   map['internalFeedback'] = internalFeedbackController.text;
+
+                  // Nick Function here
+                  addAssessment();
+
                   return showDialog(
                     context: context,
                     builder: (context) {
